@@ -35,22 +35,26 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // 3. Mobile Hamburger Menu Toggle Logic
+ 
     const menuToggle = document.getElementById("mobile-menu");
     const navMenu = document.getElementById("nav-menu");
+    const navLinksList = document.querySelectorAll("nav a");
 
     if (menuToggle && navMenu) {
-        // Click par menu open/close toggle karne ke liye
+        // Menu open/close smoothly on click
         menuToggle.addEventListener("click", () => {
+            menuToggle.classList.toggle("active");
             navMenu.classList.toggle("active");
-            
-            // Icon badalne ke liye (Bars se Cross 'X')
-            const icon = menuToggle.querySelector("i");
-            if (navMenu.classList.contains("active")) {
-                icon.className = "fas fa-times";
-            } else {
-                icon.className = "fas fa-bars";
-            }
         });
+
+        // Close drawer instantly when selecting any section link
+        navLinksList.forEach(link => {
+            link.addEventListener("click", () => {
+                menuToggle.classList.remove("active");
+                navMenu.classList.remove("active");
+            });
+        });
+    
 
         // Kisi bhi link par click karte hi mobile menu automatic close ho jaye
         navLinks.forEach(link => {
